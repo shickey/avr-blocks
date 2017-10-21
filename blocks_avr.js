@@ -8,6 +8,23 @@ goog.require('Blockly.constants');
 goog.require('Blockly.ScratchBlocks.VerticalExtensions');
 
 
+/**
+ * Extension to make a block be shaped as a hat block, but with an end.
+ * This is useful for creating the hat forever block.
+ * That means the block should have a previous connection and have
+ * inline inputs, but have no next connection.
+ * @this {Blockly.Block}
+ * @readonly
+ */
+Blockly.ScratchBlocks.VerticalExtensions.SHAPE_HATEND = function() {
+  this.setInputsInline(true);
+  // this.setPreviousStatement(true, null);
+};
+
+Blockly.Extensions.register('shape_hatend',
+      Blockly.ScratchBlocks.VerticalExtensions.SHAPE_HATEND);
+
+
 Blockly.Blocks['avr_whenchipstartsup'] = {
   /**
    * Block for when chip boots.
@@ -44,6 +61,28 @@ Blockly.Blocks['avr_whenpin'] = {
       ],
       "category": Blockly.Categories.avr,
       "extensions": ["colours_more", "shape_hat"]
+    });
+  }
+};
+
+Blockly.Blocks['avr_everyloop'] = {
+  /**
+   * Block main chip execution loop.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "id": "avr_everyloop",
+      "message0": "every loop",
+      "message1": "%1",
+      "args1": [
+        {
+          "type": "input_statement",
+          "name": "SUBSTACK"
+        }
+      ],
+      "category": Blockly.Categories.avr,
+      "extensions": ["colours_more", "shape_hatend"]
     });
   }
 };
