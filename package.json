@@ -1,0 +1,24 @@
+{
+  "name": "avr-blocks",
+  "version": "1.0.0",
+  "description": "A blocks-based programming language for AVR processors based on Scratch Blocks.",
+  "main": "index.js",
+  "dependencies": {
+    "avrgirl-usbtinyisp": "^1.0.2",
+    "express": "^4.16.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shickey/avr-blocks.git"
+  },
+  "author": "LLK",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shickey/avr-blocks/issues"
+  },
+  "homepage": "https://github.com/shickey/avr-blocks#readme"
+}
