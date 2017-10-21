@@ -74,7 +74,7 @@ Blockly.Blocks['avr_logicmenu'] = {
 
 Blockly.Blocks['avr_pinmenu'] = {
   /**
-   * Logic level drop-down menu.
+   * Pins drop-down menu.
    * @this Blockly.Block
    */
   init: function() {
@@ -106,6 +106,30 @@ Blockly.Blocks['avr_pinmenu'] = {
   }
 };
 
+Blockly.Blocks['avr_pindirection'] = {
+  /**
+   * Pin direction drop-down menu.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit(
+      {
+        "message0": "%1",
+        "args0": [
+          {
+            "type": "field_dropdown",
+            "name": "PIN_DIRECTION",
+            "options": [
+              ['INPUT', '_input_'],
+              ['OUTPUT', '_output_'],
+            ]
+          }
+        ],
+        "extensions": ["output_string"]
+      });
+  }
+};
+
 Blockly.Blocks['avr_waitms'] = {
   /**
    * Block to insert delay into instruction stream.
@@ -119,6 +143,31 @@ Blockly.Blocks['avr_waitms'] = {
         {
           "type": "input_value",
           "name": "DURATION"
+        }
+      ],
+      "category": Blockly.Categories.avr,
+      "extensions": ["colours_more", "shape_statement"]
+    });
+  }
+};
+
+Blockly.Blocks['avr_configpin'] = {
+  /**
+   * Block to configure pin as input or output.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "id": "avr_configpin",
+      "message0": "configure pin %1 as %2",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "PIN"
+        },
+        {
+          "type": "input_value",
+          "name": "PIN_DIRECTION"
         }
       ],
       "category": Blockly.Categories.avr,
