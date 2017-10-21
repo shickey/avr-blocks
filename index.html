@@ -345,8 +345,36 @@
     
     <!-- AVR Toolbox -->
     <xml id="toolbox-avr" style="display: none;">
-      <category name="AVR">
-        <block type="avr_helloworld"></block>
+      <category name="AVR" colour="#FF6680" secondaryColour="#FF4D6A">
+        <block type="avr_whenchipstartsup"></block>
+        <block type="avr_whenpin">
+          <value name="PIN">
+            <shadow type="avr_pinmenu"></shadow>
+          </value>
+          <value name="LOGIC_LEVEL">
+            <shadow type="avr_logicmenu"></shadow>
+          </value>
+        </block>
+        <block type="avr_waitms">
+          <value name="DURATION">
+            <shadow type="math_positive_number">
+              <field name="NUM">1000</field>
+            </shadow>
+          </value>
+        </block>
+        <block type="avr_setpin">
+          <value name="PIN">
+            <shadow type="avr_pinmenu"></shadow>
+          </value>
+          <value name="LOGIC_LEVEL">
+            <shadow type="avr_logicmenu"></shadow>
+          </value>
+        </block>
+        <block type="avr_pinvalue">
+          <value name="PIN">
+            <shadow type="avr_pinmenu"></shadow>
+          </value>
+        </block>
       </category>
       <category name="Control" colour="#FFAB19" secondaryColour="#CF8B17">
         <block type="control_wait" id="control_wait">
