@@ -52,6 +52,9 @@
           }
         });
 
+        var dom = Blockly.Xml.textToDom(blinkXml);
+        Blockly.Xml.domToWorkspace(dom, workspace);
+
       }
 
       function getToolboxElement() {
@@ -62,6 +65,76 @@
         var output = document.getElementById('importExport');
         output.value = Blockly.Avr.workspaceToCode(workspace);
       }
+
+      var blinkXml = [
+        '  <xml xmlns="http://www.w3.org/1999/xhtml">',
+        '    <variables></variables>',
+        '    <block type="avr_whenchipstartsup" id="#btOp1%7(pBU*;)$x%p8" x="77" y="231">',
+        '      <next>',
+        '        <block type="avr_configpin" id="]+$C}~V))sarvj|]u+xS">',
+        '          <value name="PIN">',
+        '            <shadow type="avr_pinmenu" id="@W0:yi5!0O.sp2m`+]1D">',
+        '              <field name="PIN">_pa0_</field>',
+        '            </shadow>',
+        '          </value>',
+        '          <value name="PIN_DIRECTION">',
+        '            <shadow type="avr_pindirection" id="$.Q*jNJT]qwXd+-l-JM9">',
+        '              <field name="PIN_DIRECTION">_output_</field>',
+        '            </shadow>',
+        '          </value>',
+        '        </block>',
+        '      </next>',
+        '    </block>',
+        '    <block type="avr_everyloop" id="d)a[jq^R,f}+Y(MHs[Pu" x="521" y="281">',
+        '      <statement name="SUBSTACK">',
+        '        <block type="avr_setpin" id=";zcL=_{dObSwB44.0P0?">',
+        '          <value name="PIN">',
+        '            <shadow type="avr_pinmenu" id="F*k/j54dn){=IBNl]W/z">',
+        '              <field name="PIN">_pa0_</field>',
+        '            </shadow>',
+        '          </value>',
+        '          <value name="LOGIC_LEVEL">',
+        '            <shadow type="avr_logicmenu" id="EkE!{Bc|C*pNvlj3QLzP">',
+        '              <field name="LOGIC">_high_</field>',
+        '            </shadow>',
+        '          </value>',
+        '          <next>',
+        '            <block type="avr_waitms" id=")US2J6?~8pg8Hcw5EM2H">',
+        '              <value name="DURATION">',
+        '                <shadow type="math_positive_number" id="uwDy3!W%/6?SBxe2us!.">',
+        '                  <field name="NUM">1000</field>',
+        '                </shadow>',
+        '              </value>',
+        '              <next>',
+        '                <block type="avr_setpin" id="ol#7c!`/~/f[^#58z@[x">',
+        '                  <value name="PIN">',
+        '                    <shadow type="avr_pinmenu" id="SJ?VCTyznW$;4)$`Ykv4">',
+        '                      <field name="PIN">_pa0_</field>',
+        '                    </shadow>',
+        '                  </value>',
+        '                  <value name="LOGIC_LEVEL">',
+        '                    <shadow type="avr_logicmenu" id="z?RdOq;`,i^zyYONq/-]">',
+        '                      <field name="LOGIC">_low_</field>',
+        '                    </shadow>',
+        '                  </value>',
+        '                  <next>',
+        '                    <block type="avr_waitms" id="l,:p~.]$b^xfgjqPg2V=">',
+        '                      <value name="DURATION">',
+        '                        <shadow type="math_positive_number" id="HA^{jAM.zaRm^u,fP}2^">',
+        '                          <field name="NUM">1000</field>',
+        '                        </shadow>',
+        '                      </value>',
+        '                    </block>',
+        '                  </next>',
+        '                </block>',
+        '              </next>',
+        '            </block>',
+        '          </next>',
+        '        </block>',
+        '      </statement>',
+        '    </block>',
+        '  </xml>'
+      ].join('\n');
 
     </script>
 
