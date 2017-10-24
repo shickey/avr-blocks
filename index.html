@@ -10,6 +10,7 @@
     <script src="messages.js"></script>
     <script src="blocks_compressed.js"></script>
     <script src="blocks_compressed_vertical.js"></script>
+    <script src="avr_generator.js"></script>
     <script src="blocks_avr.js"></script>
     <script>
       'use strict';
@@ -59,7 +60,7 @@
       
       function generateAvr() {
         var output = document.getElementById('importExport');
-        output.value = Blockly.avr.workspaceToCode(workspace);
+        output.value = Blockly.Avr.workspaceToCode(workspace);
       }
 
     </script>
