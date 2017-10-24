@@ -101,8 +101,8 @@ Blockly.Blocks['avr_logicmenu'] = {
             "type": "field_dropdown",
             "name": "LOGIC",
             "options": [
-              ['HIGH', '_high_'],
-              ['LOW', '_low_'],
+              ['HIGH', 'HIGH'],
+              ['LOW', 'LOW'],
             ]
           }
         ],
@@ -125,18 +125,18 @@ Blockly.Blocks['avr_pinmenu'] = {
             "type": "field_dropdown",
             "name": "PIN",
             "options": [
-              ['PA0', '_pa0_'],
-              ['PA1', '_pa1_'],
-              ['PA2', '_pa2_'],
-              ['PA3', '_pa3_'],
-              ['PA4', '_pa4_'],
-              ['PA5', '_pa5_'],
-              ['PA6', '_pa6_'],
-              ['PA7', '_pa7_'],
-              ['PB0', '_pb0_'],
-              ['PB1', '_pb1_'],
-              ['PB2', '_pb2_'],
-              ['PB3', '_pb3_'],
+              ['PA0', 'PA0'],
+              ['PA1', 'PA1'],
+              ['PA2', 'PA2'],
+              ['PA3', 'PA3'],
+              ['PA4', 'PA4'],
+              ['PA5', 'PA5'],
+              ['PA6', 'PA6'],
+              ['PA7', 'PA7'],
+              ['PB0', 'PB0'],
+              ['PB1', 'PB1'],
+              ['PB2', 'PB2'],
+              ['PB3', 'PB3'],
             ]
           }
         ],
@@ -159,8 +159,8 @@ Blockly.Blocks['avr_pindirection'] = {
             "type": "field_dropdown",
             "name": "PIN_DIRECTION",
             "options": [
-              ['INPUT', '_input_'],
-              ['OUTPUT', '_output_'],
+              ['INPUT', 'INPUT'],
+              ['OUTPUT', 'OUTPUT'],
             ]
           }
         ],

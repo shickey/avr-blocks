@@ -99,6 +99,68 @@ Blockly.Avr.ORDER_NONE = 99;            // (...)
 // ];
 
 /**
+ * Generate code for all blocks in the workspace to the specified language.
+ * @param {Blockly.Workspace} workspace Workspace to generate code from.
+ * @return {string} Generated code.
+ */
+Blockly.Avr.workspaceToCode = function(workspace) {
+  if (!workspace) {
+    // Backwards compatibility from before there could be multiple workspaces.
+    console.warn('No workspace specified in workspaceToCode call.  Guessing.');
+    workspace = Blockly.getMainWorkspace();
+  }
+
+
+  this.init(workspace);
+
+  var varDecls = [];
+  var setupCode = [];
+  var mainLoopCode = [];
+
+  var blocks = workspace.getTopBlocks(true);
+  for (var x = 0, block; block = blocks[x]; x++) {
+    if (block.type !== 'avr_whenchipstartsup' && block.type !== 'avr_everyloop') {
+      // TODO: Handle avr_whenpin block. Maybe use interrupts?
+      continue; // Only code included under a setup or main loop hat gets included in the executable
+    }
+    var line = this.blockToCode(block);
+    if (goog.isArray(line)) {
+      // Value blocks return tuples of code and operator order.
+      // Top-level blocks don't care about operator order.
+      line = line[0];
+    }
+    if (line) {
+      if (block.outputConnection && this.scrubNakedValue) {
+        // This block is a naked value.  Ask the language's code generator if
+        // it wants to append a semicolon, or something.
+        line = this.scrubNakedValue(line);
+      }
+      if (block.type === 'avr_whenchipstartsup') {
+        setupCode.push(line);
+      }
+      else if (block.type === 'avr_everyloop') {
+        mainLoopCode.push(line);
+      }
+      else {
+        // Invalid
+      }
+    }
+  }
+
+  var varStr = varDecls.join('\n');
+  var setupCodeStr = setupCode.join('\n');
+  var mainLoopCodeStr = mainLoopCode.join('\n');
+
+  var code = this.programTemplate
+              .replace(/\/\*= VARS =\*\//, varStr)
+              .replace(/\/\*= SETUP =\*\//, setupCodeStr)
+              .replace(/\/\*= MAIN =\*\//, mainLoopCodeStr);
+
+  code = this.finish(code);
+  return code;
+};
+
+/**
  * Initialise the database of variable names.
  * @param {!Blockly.Workspace} workspace Workspace to generate code from.
  */
@@ -115,7 +177,7 @@ Blockly.Avr.init = function(workspace) {
   } else {
     Blockly.Avr.variableDB_.reset();
   }
-  
+
   // TODO: Retrieve variables by type
 
   // var defvars = [];
@@ -146,6 +208,7 @@ Blockly.Avr.finish = function(code) {
   // delete Blockly.Avr.functionNames_;
   // Blockly.Avr.variableDB_.reset();
   // return definitions.join('\n\n') + '\n\n\n' + code;
+  return code;
 };
 
 /**
@@ -155,7 +218,8 @@ Blockly.Avr.finish = function(code) {
  * @return {string} Legal line of code.
  */
 Blockly.Avr.scrubNakedValue = function(line) {
-  return '';
+  // This doesn't really matter in our case since we ignore blocks not attached to an AVR hat
+  return line;
 };
 
 /**
@@ -165,6 +229,42 @@ Blockly.Avr.scrubNakedValue = function(line) {
  * @private
  */
 Blockly.Avr.scrub_ = function(block, code) {
-  
+  return code;
 };
 
+Blockly.Avr.programTemplate = [
+  '#include <avr/io.h>',
+  '#include <util/delay.h>',
+  '#include <avr/pgmspace.h>',
+  '',
+  '#define output(directions,pin) (directions |= pin)',
+  '#define input(directions,pin) (directions &= (~pin))',
+  '#define set(port,pin) (port |= pin)',
+  '#define clear(port,pin) (port &= (~pin))',
+  '#define pin_test(pins,pin) (pins & pin)',
+  '#define bit_test(byte,bit) (byte & (1 << bit))',
+  '',
+  '',
+  '/*= VARS =*/',
+  '',
+  '',
+  'int main(void) {',
+  '   //',
+  '   // set clock divider to /1',
+  '   //',
+  '   CLKPR = (1 << CLKPCE);',
+  '   CLKPR = (0 << CLKPS3) | (0 << CLKPS2) | (0 << CLKPS1) | (0 << CLKPS0);',
+  '',
+  '   // Setup',
+  '   /*= SETUP =*/',
+  '',
+  '   //',
+  '   // main loop',
+  '   //',
+  '   while (1) {',
+  '',
+  '      /*= MAIN =*/',
+  '',
+  '   }',
+  '}'
+].join('\n');
