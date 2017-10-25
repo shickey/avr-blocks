@@ -55,9 +55,11 @@ Blockly.Avr['avr_configpin'] = function(block) {
 	var directionPort = "DDR" + pin.match(/^P(\w)\d$/)[1];
 	var direction = Blockly.Avr.valueToCode(block, 'PIN_DIRECTION', Blockly.Avr.ORDER_ATOMIC);
 	
+	var pinShifted = '(1 << ' + pin + ')';
+
 	var code = '';
 	if (direction == "OUTPUT") {
-		code = 'output';
+		code += 'output';
 	}
 	else if (direction == "INPUT") {
 		code = 'input';
@@ -66,7 +68,7 @@ Blockly.Avr['avr_configpin'] = function(block) {
 		//TODO: Handle bad values
 	}
 
-	code += '(' + directionPort + ', ' + '(1 << ' + pin + '));';
+	code += '(' + directionPort + ', ' + pinShifted + ');';
 
 	if (block.nextConnection && block.nextConnection.targetBlock()) {
 		code += "\n" + Blockly.Avr.blockToCode(block.nextConnection.targetBlock())[0];
@@ -80,18 +82,16 @@ Blockly.Avr['avr_setpin'] = function(block) {
 	var port = "PORT" + pin.match(/^P(\w)\d$/)[1];
 	var logicLevel = Blockly.Avr.valueToCode(block, 'LOGIC_LEVEL', Blockly.Avr.ORDER_ATOMIC);
 	
-	var numericLogicLevel = "0";
+	code = ''
 	if (logicLevel == "HIGH") {
-		numericLogicLevel = "1";
+		var code = 'set(' + port + ', (1 << ' + pin + '));';
 	}
 	else if (logicLevel == "LOW") {
-		numericLogicLevel = "0";	
+		var code = 'clear(' + port + ', (1 << ' + pin + '));';
 	}
 	else {
 		//TODO: Handle bad values
 	}
-
-	var code = 'set(' + port + ', ' + numericLogicLevel + ');';
 
 	if (block.nextConnection && block.nextConnection.targetBlock()) {
 		code += "\n" + Blockly.Avr.blockToCode(block.nextConnection.targetBlock())[0];
@@ -103,7 +103,7 @@ Blockly.Avr['avr_setpin'] = function(block) {
 Blockly.Avr['avr_pinvalue'] = function(block) {
 
 	//TODO: Implement this properly
-	
+
 	var pin = Blockly.Avr.valueToCode(block, 'PIN', Blockly.Avr.ORDER_ATOMIC);
 	var valueCode = '(1 << ' + pin + ')';
 

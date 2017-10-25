@@ -13,10 +13,13 @@
     <script src="avr_generator.js"></script>
     <script src="blocks_avr.js"></script>
     <script src="avr_blocks_to_code.js"></script>
+    <script src="socket.io.slim.2.0.4.js"></script>
     <script>
       'use strict';
 
       var workspace = null;
+      var avrCode = null;
+      var socket = null;
 
       function start() {
 
@@ -56,6 +59,13 @@
         var dom = Blockly.Xml.textToDom(blinkXml);
         Blockly.Xml.domToWorkspace(dom, workspace);
 
+        socket = io.connect('http://localhost:3030');
+
+        socket.on('status', function(data) {
+          var statusMsgs = document.getElementById('status');
+          statusMsgs.value += data.status + '\n';
+        });
+
       }
 
       function getToolboxElement() {
@@ -64,7 +74,21 @@
       
       function generateAvr() {
         var output = document.getElementById('importExport');
-        output.value = Blockly.Avr.workspaceToCode(workspace);
+        avrCode = Blockly.Avr.workspaceToCode(workspace);
+        output.value = avrCode;
+      }
+
+      function sendToAvr() {
+
+        var output = document.getElementById('importExport');
+
+        // if (socket && avrCode) {
+          var statusMsgs = document.getElementById('status');
+          statusMsgs.value = '';
+          socket.emit('compile', {
+            code: output.value
+          });
+        // }
       }
 
       var blinkXml = [
@@ -415,6 +439,12 @@
         <input type="button" value="Generate AVR" onclick="generateAvr()">
         <br>
         <textarea id="importExport" style="width: 90%; height: 20em"></textarea>
+        <input type="button" value="Send to AVR chip" onclick="sendToAvr()">
+      </p>
+
+      <p>
+        Status Messages
+        <textarea disabled id="status" style="width: 90%; height: 20em"></textarea>
       </p>
 
     </div>

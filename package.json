@@ -5,7 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "avrgirl-usbtinyisp": "^1.0.2",
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "socket.io": "^2.0.4"
   },
   "devDependencies": {},
   "scripts": {
