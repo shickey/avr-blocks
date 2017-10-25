@@ -27,44 +27,44 @@ Blockly.Avr.addReservedWords(
 
 /**
  * Order of operation ENUMs.
+ * As per http://en.cppreference.com/w/c/language/operator_precedence
  */
 
-// TODO: Implement operator precedence.
-// For now, use ORDER_ATOMIC for every call of valueToCode()
-// and ORDER_NONE as the final return statement on every value block
-// (Which should work as per https://developers.google.com/blockly/guides/create-custom-blocks/operator-precedence)
-
 Blockly.Avr.ORDER_ATOMIC = 0;           // 0 "" ...
-// Blockly.Javascript.ORDER_NEW = 1.1;            // new
-// Blockly.JavaScript.ORDER_MEMBER = 1.2;         // . []
-// Blockly.JavaScript.ORDER_FUNCTION_CALL = 2;    // ()
-// Blockly.JavaScript.ORDER_INCREMENT = 3;        // ++
-// Blockly.JavaScript.ORDER_DECREMENT = 3;        // --
-// Blockly.JavaScript.ORDER_BITWISE_NOT = 4.1;    // ~
-// Blockly.JavaScript.ORDER_UNARY_PLUS = 4.2;     // +
-// Blockly.JavaScript.ORDER_UNARY_NEGATION = 4.3; // -
-// Blockly.JavaScript.ORDER_LOGICAL_NOT = 4.4;    // !
-// Blockly.JavaScript.ORDER_TYPEOF = 4.5;         // typeof
-// Blockly.JavaScript.ORDER_VOID = 4.6;           // void
-// Blockly.JavaScript.ORDER_DELETE = 4.7;         // delete
-// Blockly.JavaScript.ORDER_DIVISION = 5.1;       // /
-// Blockly.JavaScript.ORDER_MULTIPLICATION = 5.2; // *
-// Blockly.JavaScript.ORDER_MODULUS = 5.3;        // %
-// Blockly.JavaScript.ORDER_SUBTRACTION = 6.1;    // -
-// Blockly.JavaScript.ORDER_ADDITION = 6.2;       // +
-// Blockly.JavaScript.ORDER_BITWISE_SHIFT = 7;    // << >> >>>
-// Blockly.JavaScript.ORDER_RELATIONAL = 8;       // < <= > >=
-// Blockly.JavaScript.ORDER_IN = 8;               // in
-// Blockly.JavaScript.ORDER_INSTANCEOF = 8;       // instanceof
-// Blockly.JavaScript.ORDER_EQUALITY = 9;         // == != === !==
-// Blockly.JavaScript.ORDER_BITWISE_AND = 10;     // &
-// Blockly.JavaScript.ORDER_BITWISE_XOR = 11;     // ^
-// Blockly.JavaScript.ORDER_BITWISE_OR = 12;      // |
-// Blockly.JavaScript.ORDER_LOGICAL_AND = 13;     // &&
-// Blockly.JavaScript.ORDER_LOGICAL_OR = 14;      // ||
-// Blockly.JavaScript.ORDER_CONDITIONAL = 15;     // ?:
-// Blockly.JavaScript.ORDER_ASSIGNMENT = 16;      // = += -= *= /= %= <<= >>= ...
-// Blockly.JavaScript.ORDER_COMMA = 17;           // ,
+Blockly.Avr.ORDER_POSTINC = 1;          // ++
+Blockly.Avr.ORDER_POSTDEC = 1;          // --
+Blockly.Avr.ORDER_FUNCTION_CALL = 1;    // ()
+Blockly.Avr.ORDER_ARRAY_SUBSRIPT = 1;   // []
+Blockly.Avr.ORDER_DOT_ACCESS = 1;       // .
+Blockly.Avr.ORDER_ARROW_ACCESS = 1;     // ->
+Blockly.Avr.ORDER_COMPOUND_LITERAL = 1; // (type){list}
+Blockly.Avr.ORDER_PREINC = 2;           // ++
+Blockly.Avr.ORDER_PREDEC = 2;           // --
+Blockly.Avr.ORDER_UNARY_PLUS = 2;       // +
+Blockly.Avr.ORDER_UNARY_MINUS = 2;      // -
+Blockly.Avr.ORDER_LOGICAL_NOT = 2;      // !
+Blockly.Avr.ORDER_BITWISE_NOT = 2;      // ~
+Blockly.Avr.ORDER_TYPECAST = 2;         // (type)
+Blockly.Avr.ORDER_DEREFERENCE = 2;      // *
+Blockly.Avr.ORDER_ADDRESS_OF = 2;       // &
+Blockly.Avr.ORDER_SIZE_OF = 2;          // sizeof
+Blockly.Avr.ORDER_ALIGNMENT_OF = 2;     // _Alignof
+Blockly.Avr.ORDER_MULTIPLICATION = 3;   // *
+Blockly.Avr.ORDER_DIVISION = 3;         // /
+Blockly.Avr.ORDER_MODULUS = 3;          // %
+Blockly.Avr.ORDER_ADDITION = 4;         // +
+Blockly.Avr.ORDER_SUBTRACTION = 4;      // -
+Blockly.Avr.ORDER_BITSHIFT = 5;         // << >>
+Blockly.Avr.ORDER_RELATIONAL = 6;       // < <= > >=
+Blockly.Avr.ORDER_EQUALITY = 7;         // == !=
+Blockly.Avr.ORDER_BITWISE_AND = 8;      // &
+Blockly.Avr.ORDER_BITWISE_XOR = 9;      // ^
+Blockly.Avr.ORDER_BITWISE_OR = 10;      // |
+Blockly.Avr.ORDER_LOGICAL_AND = 11;     // &&
+Blockly.Avr.ORDER_LOGICAL_OR = 12;      // ||
+Blockly.Avr.ORDER_TERNARY_IF = 13;      // ?:
+Blockly.Avr.ORDER_ASSIGNMENT = 14;      // = += -= *= /= %= <<= >>= &= ^= |=
+Blockly.Avr.ORDER_COMMA = 15;           // ,
 Blockly.Avr.ORDER_NONE = 99;            // (...)
 
 /**
